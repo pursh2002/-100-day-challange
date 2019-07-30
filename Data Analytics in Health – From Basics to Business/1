@@ -1,0 +1,102 @@
+
+some key aspects in the development of an in silico fully automated case-finding system for type 2 diabetes. 
+
+An important point I want to illustrate is that machine learning and data mining can enable innovative uses 
+of existing databases including applications of data that were never originally envisioned. 
+
+lecture covered the development of a scalable clinical tool based on a database that is intended for
+administrative use. 
+
+From a machine learning perspective -- basics of building and evaluating classification models which are models
+that predict a binary outcome: positive or negative; based on positive and unlabeled data, 
+which is a twist on the usual supervised set up. 
+
+
+This lecture is partitioned into three videos: in the 
+first video I will describe the context of the application, with a brief introduction of key aspects of diabetes
+and case-finding for diabetes. 
+
+The second video covers the basics of Belgian health expenditure data to describe what we're dealing with
+and in the 
+
+final video, I will show an overview of the machine learning aspects involved in this use case and compare the 
+resulting prototype to existing state-of-the-art and then with some general conclusions. 
+
+Diabetes mellitus is a chronic metabolic disorder that's characterized by hyperglycemia; that is
+elevated blood glucose levels. Blood glucose levels may fluctuate a lot in
+healthy individuals, depending on many factors such as whether the person is
+exercising or recently ate. However structurally elevated blood glucose
+levels are a big problem, as this may cause serious harm to many of the body’s
+systems. Chronic hyperglycemia can lead to many complications, such as kidney
+failure, micro and macro vascular problems, nerve damage including loss of vision
+and loss of sensitivity in lower limbs and many more. 
+
+Insulin plays a central role in the regulation of blood glucose levels.
+Insulin is a peptide hormone that is produced by pancreatic beta-cells.
+Insulin lowers blood glucose levels by promoting absorption of glucose from the blood and
+by suppressing glucose production and excretion by the liver. Chronic
+hyperglycemia typically indicates some insulin related problem. 
+
+Two major typesof such problems exist:
+namely insulin deficiency and insulin resistance. Insulin deficiency means that
+insufficient insulin is produced by the patient which may be caused by an
+autoimmune destruction of pancreatic beta-cells. This is particularly
+characteristic for type 1 diabetes. Patients with insulin deficiency require
+external insulin for survival.
+
+Another problem is insulin resistance, which means that cells have a reduced
+response to insulin, leading to reduced glucose absorption which in turn leads
+to hyperglycemia. 
+
+Insulin resistance is commonly caused by chronic obesity
+during which the patient has consistently elevated glucose levels and
+consequently also elevated insulin levels to absorb this glucose. 
+
+Over time
+the cells will gradually become resistant to high concentrations of
+insulin. Our application revolves around type 2 diabetes mellitus which is
+usually a combination of insulin deficiency and insulin resistance and
+typically starts an adult age. 
+
+Type 2 diabetes accounts for the majority of
+diabetes mellitus patients. It is a highly prevalent disease. The World
+Health Organization estimated the prevalence of type 2 diabetes to be nine
+percent among adults over 18 years of age.
+Additionally the prevalence of type 2 diabetes is rising at an alarming rate.
+In Western countries this rising prevalence is driven by increasingly
+sedentary lifestyles and poor diets. 
+
+In addition to be highly prevalent type 2
+diabetes is also very expensive, as the International Diabetes Federation
+reports that about ten percent of national health care budgets are spent
+on treating diabetes or its complications.
+
+Finally the World Health Organization predicts that diabetes will be the
+seventh leading cause of death by 2030. 
+
+The success of treating type 2 diabetes
+and preventing complications is largely dependent on the time of diagnosis of
+the disease. Treatment of early-stage type 2 diabetes is often limited to
+lifestyle interventions, typically targeted towards weight loss. While later
+stages require strict pharmacological therapy involving one or more
+glucose-lowering agents. Evidence in the literature has convincingly shown that
+many complications of type 2 diabetes can be delayed or even avoided, if the
+disease is caught early.
+
+
+Unfortunately there is significant clinical inertia in the diagnosis of
+type 2 diabetes. The international diabetes federation estimates that
+globally about half of type 2 diabetes patients remain undiagnosed. In developed
+countries estimates for this ratio or closer to 1 undiagnosed patient in 3,
+which is still a very significant portion. An additional issue is that
+patients are often diagnosed very late with the average delay between onset of
+diabetes and its clinical diagnosis exceeding several years. During its
+untreated face the uncontrolled blood glucose levels often cause irreparable
+harm to the patient. Diagnosing type 2 diabetes is difficult because the
+disease is known to have a long asymptomatic period. Without clear warning signs
+the clinical inertia in diagnosing type 2 diabetes is evidenced by the fact that
+diabetes diagnosis are often triggered when a patient presents with symptoms of
+complications. To reduce the clinical inertia in diagnosing type 2 diabetes,
+opportunistic screening of high-risk subgroups is recommended by many leading
+international organizations, including the World Health Organization, the
+American Diabetes Association and the International Diabetes Federation.
