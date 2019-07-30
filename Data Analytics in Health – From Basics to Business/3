@@ -1,0 +1,119 @@
+
+In this video, I will briefly discuss the machine learning aspects of building a
+case-finding system based on health expenditure data. The key analytic task
+in this use case is to predict whether a certain person will get diagnosed with
+type 2 diabetes, based exclusively on available health expenditure data.
+Conceptually, a person is considered to be at high risk if his or her profile
+resembles that of type 2 diabetes patients prior to their diagnosis. A
+crucial challenge for this use case is the fact that health expenditure data
+does not contain diagnosis and hence we have no direct access to the desired
+class labels. Instead, we build predictive models to predict whether individuals
+will start using glucose-lowering agents which IS available in health expenditure
+data. Patients that start glucose-lowering pharmacotherapy are
+positives, diabetics. However, patients without glucose-lowering pharmacotherapy
+are not negatives, since they might have undiagnosed diabetes (approximately
+one patient in three) or they may have been diagnosed and treated with
+lifestyle interventions. As such, we only have reliable information on a subset of
+diabetics (positive labels) while all other persons are effectively unlabeled
+instead of negatives. The learning problem embedded in this application is
+a form of semi-supervised classification. Standard supervised binary classification
+focuses on distinguishing two classes, based on a training set consisting of
+known positives and known negatives. This distinction can be made for example by
+determining a decision boundary between the classes. Semi-supervised learning
+addresses the challenges of more complex learning problems in which the data is
+somehow corrupted or missing, which is very common in real-world data. In our
+applications the features are quite reliable; that is the drug purchases and
+medical interventions received by a patient, but the class labels are not;
+that is whether a person
+is diabetic or not. In this application, the central questions are how do we
+build and evaluate models without known negatives? When designing a suitable
+modeling approach for application, we have to meet several criteria.
+First of all the learning method has to be suitable for high-dimensional data,
+given that our data vectors have thousands of dimensions.
+Secondly, we wanted the approach to be computationally efficient. These two
+properties are met by linear support vector machines or linear SVM for short,
+which I will describe conceptually in the next few slides. Linear SVM's however
+require a fully supervised training set instead of positive and unlabeled data. A
+simple approximation that is often used is to treat the unlabeled set as if it's
+negative, which is true for the majority of individuals. But this was not
+sufficient for our purposes.
+Instead, we use the technique of ‘bagging’ which essentially consists of creating
+an ensemble model that consists of many individual base models, which in this
+case are linear SVM’s. This ensemble model is more robust in the context of
+label noise than each individual SVM base model. A linear SVM classifier can
+be illustrated easily in two dimensions: suppose we have two classes represented
+by the circles and dots respectively. The goal of classification is to compute a
+boundary that separates these two sets of dots. For simplicity we will use a
+linear decision boundary yielding a straight line. In the picture you can see
+that we can draw many straight lines that perfectly separate the two classes.
+So which one do we use? A linear SVM computes uniquely defined decision
+boundary as shown in blue. The solution maximizes the so-called margin shown in
+red.
+This means that the decision boundary has maximal distance to the closest
+point of either class. From a machine learning point of view, margin
+maximization leads to many desirable properties, in particular robustness
+against data perturbations. That is movement of the points. You can see that
+if we move some of these points, the resulting decision
+boundary as shown in blue is likely to remain similar. Linear SVM is a very
+useful technique that easily scales to high dimensions at low computational
+cost. The way the algorithm works in many dimensions is conceptually the same as
+I've shown in two dimensions. I previously explained that we have to
+deal with label noise in our task. Suppose that the dots represent the
+unlabeled set, which we treat as if they are negative. With the current
+constellation we would receive the decision boundary shown before.
+However if only a single unlabeled instance would have its label switched
+(as shown on the slide) we would end up with a completely different SVM decision
+boundary. This illustrates that an SVM is not very robust against label noise,
+though this is a desirable property for our use case. To address the need for
+robustness against label noise, we employed a popular method called ‘bagging’,
+which is short for ‘bootstrap aggregation’. In bagging we create a so-called ensemble
+model, that consists of many individual base models and which aggregates the
+predictions of each base model through majority voting. Each base model is a
+linear SVM trained on a random subset of the original data. Bagging works well if
+the base models are diverse, which means they should all capture different
+decision boundaries. As shown previously, the decision boundaries of SVM's are
+quite sensitive to class labels. By resampling the data set, each new
+artificial training set will have different ratios of false negatives, that
+is patients who should be positive but are treated as negative in the
+learning process. This will induce the diversity we can exploit via bagging.
+The next problem is evaluating the result in predictive models. You can
+imagine that nobody would use a screening or diagnostic model in
+practice, without having a quantitative assessment of the models predictive
+performance.
+Once again we stumble on the fact that our data set has no known negatives and only a
+subset of known positives. We developed a suitable approximation that enabled us
+to compute strict upper and lower bounds on performance measures, which are
+guaranteed under realistic
+assumptions. I will not go into the technical details here but you may
+consult the additional material for more information. We quantify the performance
+of our models via area under the receiver operator characteristic curve
+which is a common metric for diagnostic and screening tests. A perfect model has
+an AUC equal to 1 while around the model has an AUC of 0.5. Our experiments have
+shown that we can reach up to seventy seven percent area under the curve via
+health expenditure data. If you compare the performance of our method with
+international state-of-the-art, we can see that its performance is competitive
+to the Cambridge risk score and the Danish diabetes risk score. These two risk scores
+are mainly based on family history, BMI, lifestyle, age and gender. The key risk
+factors for these methods turn out to be family history and BMI, which
+surprisingly are completely missing in our data set, while we still obtain
+comparable predictive performance. The predictive performance of our approach
+would increase further if we could somehow obtain these missing risk
+factors. The performance of the find risk score illustrates that using detailed
+clinical parameters profoundly elevates predictive performance, but
+unfortunately such information is unavailable in health expenditure data.
+As a conclusion we can see that our approach is comparable to two simple
+methods
+despite having no information on the key risk factors of these other methods. A
+big advantage of our method compared to existing alternatives is that is
+scalable to any population size, because it is based on data that is already
+being collected as part of the healthcare system. I hope you are
+convinced that machine learning enables us to build new innovative applications.
+Often machine learning can be used to repurpose existing data sets that were
+collected for entirely different purposes. The use case I've talked about
+is a good example of this since we built a case-finding tool based on
+administrative data. The benefits of applications based on machine learning
+can vary and may include increased predictive performance, cost reductions,
+better understanding of underlying mechanisms and many many more. To
+conclude this lecture, I want to say that there are numerous opportunities for
+innovation by using data analytics and machine learning in medicine and other
+domains.
