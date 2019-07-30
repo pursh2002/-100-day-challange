@@ -1,0 +1,61 @@
+
+In this video, I will describe the Belgian health expenditure data which we
+used to build the case finding tool for type 2 diabetes. Belgium has statutory health
+insurance for all citizens. This health insurance is organized by mutual health
+insurers which are nonprofit organizations. In contrast to some other
+countries health insurance premiums are equal and fixed for all citizens,
+regardless of age, lifestyle and risk factors. To implement their daily
+operations mutual health insurers maintain large administrative databases
+of health expenditure records which describe all refunded medical expenses.
+The first type of medical events known to mutual health insurers is ‘medical
+interventions’. Each consult results in an encoded list of interventions. The coding
+scheme for interventions retains information on what happened:
+that is the type of intervention, but omits all medical details, such as lab
+results and diagnosis.
+The second type of medical events known to mutual health insurers are refunded
+drug purchases. Mutual health insurers dispose of information about which
+package of drugs is refunded, which in turn contains information about the
+active substances as defined in the ATC classification system and their
+respective standardized volumes.
+However mutual health insurers have no information about the diagnostic process
+leading to a certain prescription, such as diagnosis, indications and
+contra-indications. As mentioned earlier, good case finding for type 2 diabetes
+mandates a comprehensive overview of a patient's medical status which obviously
+requires data. Principally the patient's general practitioner should have such a
+comprehensive overview.
+Unfortunately this is not always the case because medical information is not
+always communicated to the GP by other stakeholders such as hospitals or other
+care
+givers. Additionally if such communication does happen, it is often in an
+unstructured way, for instance via email or another form of plain text. Which the
+general practitioner then has to contextualize manually. The only
+stakeholders with a comprehensive overview in Belgium are mutual health
+insurers, because they record everything that is refunded for a single patient
+regardless of where the expenses were made. This makes them an ideal candidate
+to implement screening or case-finding methods. Our approach essentially boils
+down to running a program within mutual health insurer databases. Our approach is
+very scalable since it relies exclusively on data that is already
+being collected in a structured way as part of the Belgian healthcare system. To
+improve your understanding of the nature and size of the problem, I will now
+provide some key statistics. In the next video I will describe how we approach te
+learning task. In terms of number of patient we used about 30,000 positives
+and 79,000 unlabeled patients to build our data set. For each patient, we
+vectorized the health expenditure records of 2009 up to 2012 to build
+individualized health profiles and we based labels on 2013 up to 2015.
+Since we use data up to 2012 to predict outcomes of the coming years,
+no information leak is present. After transforming the data into a useful
+format for machine learning algorithms, each patient is represented by a vector
+in roughly 16,000 dimensions. This vector representation contains basic
+biographical information, like age,
+gender and information about medical interventions & drug purchases. Each
+distinct intervention and active substance is represented in one
+dimension with additional redundancy to encode which types of drugs and
+interventions are similar. As an example: a patient using insulin is more similar
+to a patient using metformin than a patient using paracetamol because the
+former two are both agents used to treat hyperglycemia.
+While 16,000 dimensions may be intimidating at first, it is important to
+realize that these vector representations are sparse since a
+specific patient only ever use a small set of all available medication and
+interventions. Now you have a basic understanding of the data that we used. In
+the next video, I will describe how we built the predictive models to perform
+case-finding.
